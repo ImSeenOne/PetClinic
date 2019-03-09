@@ -1,0 +1,42 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'medicines')}">
+
+  <body>
+
+    <h2>Medicamentos</h2>
+    <!--el problema aqui es verificar si el id de la tabla esta bien-->
+    <table id="meds" class="table table-striped">
+        <thead>
+        <tr>
+            <th >Nombre</th>
+            <th >Ingredientes Activos</th>
+            <th >Presentacion</th>
+            <th>Acciones</th>
+            <th></th>
+            
+            
+        </tr>
+        </thead>
+        <tbody>
+          <tr th:each="medicine : ${selections}">
+              <td>
+                  <a th:href="@{/medicines/__${medicine.id}__}" th:text="${medicine.name}"/></a>
+              </td>
+              <td th:text="${medicine.active_ingredient}"/>
+              <td th:text="${medicine.presentation}"/>
+              <td>
+                  <a th:href="@{/medicines/__${medicine.id}__/remove}" class="btn btn-default" />Eliminar</a>
+                  <a th:href="@{/medicines/{id}/edit(id=${medicine.id})}" class="btn btn-default">Editar</a>
+              </td>
+               
+        
+         
+
+          </tr>
+        </tbody>
+    </table>
+
+  </body>
+</html>
+

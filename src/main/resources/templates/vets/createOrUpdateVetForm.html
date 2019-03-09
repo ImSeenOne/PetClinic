@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
+
+<body>
+
+  <h2>Veterinarios</h2>
+ 
+  <form th:object="${vet}" class="form-horizontal" id="add-vet-form" method="post">
+    <div class="form-group has-feedback">
+      <input
+        th:replace="~{fragments/inputField :: input ('Nombre', 'firstName', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Apellidos', 'lastName', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Telefono', 'telephone', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('Dias de trabajo', 'workdays', 'text')}" />
+      <input
+        th:replace="~{fragments/inputField :: input ('horas de trabajo', 'business_hours', 'text')}" />
+      <input 
+        th:replace="~{fragments/selectField :: select ('Especialidad', 'specialty_id', ${specialties})}" />
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button
+          th:with="text=${vet['new']} ? 'Agregar Veterinario' : 'Actualizar Veterinario'"
+          class="btn btn-default" type="submit" th:text="${text}">Agregar</button>
+      </div>
+    </div>
+  </form>
+</body>
+</html>

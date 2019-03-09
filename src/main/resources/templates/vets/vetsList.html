@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
+
+<body>
+
+  <h2>Veterinarios</h2>
+
+  <table id="vets" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Especialidad</th>
+        <th>Telefono</th>
+        <th>Dias de atencion</th>
+        <th>Horario</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+         <tr th:each="vet : ${selections}">
+              <td>
+                  <a th:href="@{/vets/__${vet.id}__}" th:text="${vet.firstName + ' ' + vet.lastName}"/></a>
+              </td>
+         <td><span th:text="${vet.specialty_id}" /></td>
+         <td th:text="${vet.telephone}"></td>
+         <td th:text="${vet.workdays}"></td>
+         <td th:text="${vet.business_hours}"></td>
+         <td>
+                  <a th:href="@{/vets/__${vet.id}__/remove}" class="btn btn-default"/>Eliminar</a>
+        
+         
+          <a th:href="@{/vets/{id}/edit(id=${vet.id})}" class="btn btn-default">Editar</a>
+              </td>
+              
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

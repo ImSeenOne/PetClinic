@@ -1,0 +1,33 @@
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'medicines')}">
+
+  <body>
+  
+  
+    <h2>Informacion de Medicamentos</h2>
+  
+  
+    <table class="table table-striped" th:object="${medicine}">
+      <tr>
+        <th>Nombre</th>
+        <td><b th:text="*{name}"></b></td>
+      </tr>
+      <tr>
+        <th>Ingredientes Activos</th>
+        <td th:text="*{active_ingredient}" /></td>
+      </tr>
+      <tr>
+        <th>Presentacion</th>
+        <td th:text="*{presentation}" /></td>
+      </tr>
+      
+    </table>
+  
+    
+   
+  </body>
+
+</html>
+

@@ -1,0 +1,41 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'vets')}">
+
+  <body>
+  
+  
+    <h2>Información veterinarios</h2>
+  
+  
+    <table class="table table-striped" th:object="${vet}">
+      <tr>
+        <th>Nombre</th>
+        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+      </tr>
+      <tr>
+        <th>Telefono</th>
+        <td th:text="*{telephone}" /></td>
+      </tr>
+      <tr>
+        <th>Dias de trabajo</th>
+        <td th:text="*{workdays}" /></td>
+      </tr>
+      <tr>
+        <th>Horas de trabajo</th>
+        <td th:text="*{business_hours}" /></td>
+      </tr>
+      <tr>
+        <th>Especialidad</th>
+        <td th:text="*{specialty_id}" /></td>
+      </tr>
+    </table>
+  
+     
+   
+   
+    
+  
+  </body>
+
+</html>

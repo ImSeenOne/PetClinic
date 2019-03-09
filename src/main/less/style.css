@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20/11/2018, 09:38:34 PM
+    Author     : CitiZ
+*/
+    nav.navbar{
+        background-color: #00FA35; /**before: 09a6fb**/
+        border-top: 5px solid #257A37; /**before: 0f1c6**/
+        margin-bottom: 0px;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .navbar a.navbar-brand{
+        background: url("//..//static//resources//images//petclinicparecequeestesi.png") -1px -1px no-repeat;
+        margin: 12px 0 6px;
+        width: 229px;
+        height: 46px;
+        display: inline-block;
+        text-decoration: none;
+        padding: 0;
+    }
+
+    .navbar-toggle {
+        border-width: 0;
+    }
+
+  .icon-bar + .icon-bar {
+      margin-top: 3px;
+  }
+
+  .icon-bar {
+      width: 19px;
+      height: 3px;
+  }
+
