@@ -55,9 +55,6 @@ class OwnerController {
     @GetMapping("/owners/new")
     public String initCreationForm(Map<String, Object> model) {
         Owner owner = new Owner();
-
-
-
         model.put("owner", owner);
         return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
     }
@@ -67,8 +64,15 @@ class OwnerController {
         if (result.hasErrors()) {
             return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
         } else {
-            this.owners.save(owner);
-            return "redirect:/owners/" + owner.getId();
+            RestTemplate restTemplate = new RestTemplate();
+            ZipCode zipCode = restTemplate.getForObject("https://api-codigos-postales.herokuapp.com/v2/codigo_postal/" + owner.getZipCode(), ZipCode.class);
+            if(!zipCode.getCity().equals("")){
+                System.out.println(zipCode.toString());
+                this.owners.save(owner);
+                return "redirect:/owners/" + owner.getId();
+            } else {
+                return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+            }
         }
     }
 
