@@ -13,6 +13,7 @@
             <th style="width: 200px;">Direccion</th>
             <th>Ciudad</th>
             <th style="width: 120px">Telefono</th>
+            <th style="width: 150px;">Código postal</th>
             <th>Mascotas</th>
         </tr>
         </thead>
@@ -24,7 +25,9 @@
               <td th:text="${owner.address}"/>
               <td th:text="${owner.city}"/>
               <td th:text="${owner.telephone}"/>
-              <td><span th:each="pet : ${owner.pets}" th:text="${pet.name+' '} "/></td>
+              <td th:text="${owner.getZipCode()}">
+              <td><span th:each="pet : ${owner.pets}"
+                        th:text="${pet.name+' '} "/></td>
           </tr>
         </tbody>
     </table>
