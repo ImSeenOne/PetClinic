@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'products')}">
+
+<body>
+
+<h2>Medicamentos</h2>
+<form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
+    <div class="form-group has-feedback">
+        <input
+                th:replace="~{fragments/inputField :: input ('Nombre', 'name', 'text')}" />
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Precio', 'price', 'text')}" />
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Descripción', 'description', 'text')}" />
+
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Existencia', 'stock', 'text')}" />
+
+
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+
+            <button
+                    th:with="text=${product['new']} ? 'Agregar Producto' : 'Actualizar Producto'"
+                    class="btn btn-default" type="submit" th:text="${text}">Agregar Medicamento</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
