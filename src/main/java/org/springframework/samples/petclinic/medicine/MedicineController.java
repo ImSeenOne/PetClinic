@@ -14,11 +14,6 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
 
-/**
- *
- * @author USER
- */
-
 @Controller
  class MedicineController {
     private static final String VIEWS_MEDICINE_CREATE_OR_UPDATE_FORM ="medicines/createOrUpdateMedicineForm";
