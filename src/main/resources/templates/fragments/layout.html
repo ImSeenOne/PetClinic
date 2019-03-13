@@ -58,6 +58,11 @@
                       <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                       <span>Buscar Veterinarios</span>
                   </li>
+
+                  <li th:replace="::menuItem ('/products/find','products','Buscar Productos','search','Buscar Productos')">
+                      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                      <span>Buscar Productos</span>
+                  </li>
                   
                   <li th:replace="::menuItem ('/medicines/find','medicines','Buscar Medicinas', 'search','Buscar Medicinas')">
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
