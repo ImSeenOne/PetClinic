@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'products')}">
+
 <body>
-$END$
+
+
+<h2>Informacion de Productos</h2>
+
+
+<table class="table table-striped" th:object="${product}">
+    <tr>
+        <th>Nombre</th>
+        <td><b th:text="*{name}"></b></td>
+    </tr>
+    <tr>
+        <th>Descripción</th>
+        <td th:text="*{description}" /></td>
+    </tr>
+
+    <tr>
+        <th>Precio</th>
+        <td th:text="*{price}" /></td>
+    </tr>
+
+    <tr>
+        <th>Existencia</th>
+        <td th:text="*{stock}" /></td>
+    </tr>
+
+</table>
+
+
+
 </body>
+
 </html>
+

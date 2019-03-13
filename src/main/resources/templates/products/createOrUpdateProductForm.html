@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body},'products')}">
+      th:replace="~{fragments/layout :: layout (~{::body},'productRepository')}">
 
 <body>
 
-<h2>Medicamentos</h2>
+<h2>Productos</h2>
 <form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
     <div class="form-group has-feedback">
         <input
@@ -26,7 +26,7 @@
 
             <button
                     th:with="text=${product['new']} ? 'Agregar Producto' : 'Actualizar Producto'"
-                    class="btn btn-default" type="submit" th:text="${text}">Agregar Medicamento</button>
+                    class="btn btn-default" type="submit" th:text="${text}">Agregar Producto</button>
         </div>
     </div>
 </form>

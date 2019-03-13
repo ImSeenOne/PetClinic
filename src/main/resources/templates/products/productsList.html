@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'products')}">
+
 <body>
-$END$
+<!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
+<!--@thymesVar id="product" type="org.springframework.samples.petclinic.product.Product"-->
+<!--*/-->
+<h2>Productos</h2>
+<!--el problema aqui es verificar si el id de la tabla esta bien-->
+<table id="prods" class="table table-striped">
+    <thead>
+    <tr>
+        <th >Nombre</th>
+        <th >Decripción</th>
+        <th >Precio</th>
+        <th >Existencia</th>
+        <th >Acciones</th>
+        <th></th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${selections}">
+        <td>
+
+            <a th:href="@{/products/__${product.id}__}" th:text="${product.name}"/></a>
+        </td>
+        <td th:text="${product.description}"/>
+        <td th:text="${product.price}"/>
+        <td th:text="${product.stock}"/>
+        <td>
+            <a th:href="@{/medicines/__${product.id}__/remove}" class="btn btn-default" />Eliminar</a>
+            <a th:href="@{/medicines/{id}/edit(id=${product.id})}" class="btn btn-default">Editar</a>
+        </td>
+
+
+
+
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
+
