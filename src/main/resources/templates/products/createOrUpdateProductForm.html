@@ -1,8 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body},'productRepository')}">
+      th:replace="~{fragments/layout :: layout (~{::body},'product')}">
 
 <body>
 
+<!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
+<!--@thymesVar id="product" type="org.springframework.samples.petclinic.product.Product"-->
+<!--*/-->
 <h2>Productos</h2>
 <form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
     <div class="form-group has-feedback">
@@ -14,7 +17,6 @@
 
         <input
                 th:replace="~{fragments/inputField :: input ('Descripción', 'description', 'text')}" />
-
 
         <input
                 th:replace="~{fragments/inputField :: input ('Existencia', 'stock', 'text')}" />
