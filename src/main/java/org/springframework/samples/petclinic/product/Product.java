@@ -26,10 +26,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "stock")
     @NotEmpty
-    private String stock;
-
-    @Column(name = "image-path")
-    private String imagePath;
+    private Integer stock;
 
     @Override
     public String toString() {
@@ -37,18 +34,8 @@ public class Product extends BaseEntity {
             "name='" + name + '\'' +
             ", price='" + price + '\'' +
             ", description='" + description + '\'' +
-            ", stock='" + stock + '\'' +
-            ", imagePath='" + imagePath + '\'' +
+            ", stock=" + stock +
             '}';
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public Product setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-        return this;
     }
 
     public String getName() {
@@ -78,11 +65,11 @@ public class Product extends BaseEntity {
         return this;
     }
 
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public Product setStock(String stock) {
+    public Product setStock(Integer stock) {
         this.stock = stock;
         return this;
     }

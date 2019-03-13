@@ -27,7 +27,7 @@ class ProductController {
 
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
+        dataBinder.setAllowedFields("id");
     }
 
     @GetMapping("/products/new")
@@ -44,14 +44,14 @@ class ProductController {
             return VIEWS_PRODUCTS_CREATE_OR_UPDATE_FORM;
         } else {
             this.productRepository.save(product);
-            return "redirect:/products/" + product.getId();
+            return "redirect:/products/" + product.getName();
         }
     }
 
     @GetMapping("/products/find")
     public String initFindForm(Map<String, Object> model) {
         model.put("product", new Product());
-        return "products/findProducts";
+        return "product/findProducts";
     }
 
     @GetMapping("/products")
@@ -74,7 +74,7 @@ class ProductController {
         }
     }
 
-    @GetMapping("/products/{productId}/edit")
+    @PostMapping("/products/{productId}/edit")
     public String initUpdateForm(@PathVariable("productId") int productId, Model model) {
         Product product = this.productRepository.findById(productId);
         model.addAttribute(product);
