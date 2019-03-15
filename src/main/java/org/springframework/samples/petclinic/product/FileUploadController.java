@@ -24,13 +24,18 @@ public class FileUploadController {
     @GetMapping("/products/{id}/upload")
     public String initUploadPage(@PathVariable String id, Map<String, Object> model) {
         Product product = this.productRepository.findById(Integer.parseInt(id));
+
+        if(product == null) {
+            return "products/uploadProductImageView";
+        }
+
         model.put("product", product);
         return "products/uploadProductImageView";
     }
 
 
     @PostMapping("/products/{id}/upload")
-    public String processUploadPage(Map<String, Object> model, @PathVariable("id") String id,@RequestParam("file") MultipartFile file){
+    public String processUploadPage(Map<String, Object> model, @PathVariable("id") String id, @RequestParam("file") MultipartFile file){
         Product product;
         product = this.productRepository.findById(Integer.parseInt(id));
 

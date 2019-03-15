@@ -14,7 +14,9 @@
     <tr>
         <th>Imagen</th>
         <td>
-            <img th:src="@{'/resources/images/' + *{imagePath}}"/>
+            <a th:href="@{/products/__${product.id}__/upload}">
+                <img th:src="@{'/resources/images/' + *{imagePath}}"/>
+            </a>
         </td>
     </tr>
 
