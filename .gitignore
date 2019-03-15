@@ -12,3 +12,7 @@ target/*
 !.vscode/launch.json
 !.vscode/extensions.json
 _site/
+src/main/resources/static/resources/images/2*.jpg
+src/main/resources/static/resources/images/2*.jpeg
+src/main/resources/static/resources/images/2*.png
+src/main/resources/static/resources/images/2*.svg
