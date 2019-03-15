@@ -10,6 +10,14 @@
 
 
 <table class="table table-striped" th:object="${product}">
+
+    <tr>
+        <th>Imagen</th>
+        <td>
+            <img th:src="@{'/resources/images/' + *{imagePath}}"/>
+        </td>
+    </tr>
+
     <tr>
         <th>Nombre</th>
         <td><b th:text="*{name}"></b></td>

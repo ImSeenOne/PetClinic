@@ -11,6 +11,7 @@
 <table id="prods" class="table table-striped">
     <thead>
     <tr>
+        <th >Fotografía</th>
         <th >Nombre</th>
         <th >Decripción</th>
         <th >Precio</th>
@@ -23,6 +24,10 @@
     </thead>
     <tbody>
     <tr th:each="product : ${selections}">
+        <td><a th:href="@{/products/__${product.id}__/upload}">
+                <img th:href="@{/products/__${product.id}__/upload}" th:src="@{'/resources/images/' + ${product.imagePath}}"/>
+            </a>
+        </td>
         <td>
 
             <a th:href="@{/products/__${product.id}__}" th:text="${product.name}"/></a>
@@ -31,8 +36,8 @@
         <td th:text="${product.price}"/>
         <td th:text="${product.stock}"/>
         <td>
-            <a th:href="@{/medicines/__${product.id}__/remove}" class="btn btn-default" />Eliminar</a>
-            <a th:href="@{/medicines/{id}/edit(id=${product.id})}" class="btn btn-default">Editar</a>
+            <a th:href="@{/products/__${product.id}__/remove}" class="btn btn-default" />Eliminar</a>
+            <a th:href="@{/products/{id}/edit(id=${product.id})}" class="btn btn-default">Editar</a>
         </td>
 
 
