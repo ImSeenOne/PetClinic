@@ -25,7 +25,7 @@
     <tbody>
     <tr th:each="product : ${selections}">
         <td><a th:href="@{/products/__${product.id}__/upload}">
-                <img th:href="@{/products/__${product.id}__/upload}" th:src="@{'/resources/images/' + ${product.imagePath}}"/>
+                <img class = "imgs rounded-circle" th:href="@{/products/__${product.id}__/upload}" th:src="@{'/resources/images/' + ${product.imagePath}}"/>
             </a>
         </td>
         <td>
