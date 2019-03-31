@@ -1,7 +1,7 @@
 package org.springframework.samples.petclinic.product;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,12 +14,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Map;
 
+
 @Controller
-public class FileUploadController {
+public class FileUploadController implements StorageService{
 
     public static ProductRepository productRepository;
+    public final StorageService storageService;
 
-    public FileUploadController(ProductRepository productRepository) {this.productRepository = productRepository;}
+    @Autowired
+    public FileUploadController(ProductRepository productRepository, StorageService storageService) {
+        this.productRepository = productRepository;
+        this.storageService = storageService;
+    }
 
     @GetMapping("/products/{id}/upload")
     public String initUploadPage(@PathVariable String id, Map<String, Object> model) {
@@ -42,19 +48,11 @@ public class FileUploadController {
         if(product == null) {
             return "products/uploadProductImageView";
         }
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
         Path fileNameAndPath;
-        String[] tname = product.getName().split(" ");
-        String name = Arrays.toString(tname);
-        name = name.substring(1, name.length()-1).replace(",", "");
-        String date = dtf.format(now).replace("/","");
-
-        String extension = (file.getOriginalFilename()).substring((file.getOriginalFilename()).lastIndexOf("."));
+        String filename = this.buildFilename(product, file);
 
         try{
-            fileNameAndPath = Paths.get("C:\\Users\\Crist\\Documents\\IntelliJ IDEA Projects\\spring-petclinic-master\\src\\main\\resources\\static\\resources\\images",  (date + "_" + name + "_" + product.getId()).replace(" ", "-").replace(":","") + extension);
+            fileNameAndPath = Paths.get("C:\\Users\\Crist\\Documents\\IntelliJ IDEA Projects\\spring-petclinic-master\\src\\main\\resources\\static\\resources\\images",  filename);
             Files.write(fileNameAndPath, file.getBytes());
         } catch(IOException ioex) {
             ioex.printStackTrace();
@@ -63,9 +61,23 @@ public class FileUploadController {
             return "products/uploadProductImageView";
         }
 
-        product.setImagePath((date + "_" + name + "_" + product.getId()).replace(" ", "-").replace(":","") + extension);
+        product.setImagePath(filename);
         this.productRepository.save(product);
 
         return "redirect:/products/" + product.getId();
+    }
+
+    private String buildFilename(Product product, MultipartFile file) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        String[] tname = product.getName().split(" ");
+        String name = Arrays.toString(tname);
+        name = name.substring(1, name.length()-1).replace(",", "");
+        String date = dtf.format(now).replace("/","");
+
+        String extension = (file.getOriginalFilename()).substring((file.getOriginalFilename()).lastIndexOf("."));
+
+        return (date + "_" + name + "_" + product.getId()).replace(" ", "-").replace(":","") + extension;
     }
 }
