@@ -5,8 +5,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 
 @EnableWebSecurity
 @Configuration
@@ -17,7 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
             .withUser("user").password("{noop}pass").roles("USER")
             .and()
-            .withUser("admin").password("{noop}pass").roles("ADMIN");;
+            .withUser("admin").password("{noop}pass").roles("ADMIN");
 
         //User.withDefaultPasswordEncoder().username("user").password("user").roles("USER").build();
     }
@@ -26,11 +24,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
             .authorizeRequests()
-            //.antMatchers("**/welcome")
+            .antMatchers("/","/login","/login-error","/css/**", "/js/**", "/images/**", "/webjars/**")
+            .permitAll()
+            .anyRequest()
+            .fullyAuthenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login")
+            .failureUrl("/login-error")
+            .defaultSuccessUrl("/")
+            .and()
+            .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            ;
+        httpSecurity.csrf().disable();
+
+
+        /**httpSecurity
+            .authorizeRequests()
+            .antMatchers("/welcome").hasRole("USER")
             .anyRequest()
             .fullyAuthenticated()
             .and().httpBasic();
-        httpSecurity.csrf().disable();
+        httpSecurity.csrf().disable();*/
     }
 
 
