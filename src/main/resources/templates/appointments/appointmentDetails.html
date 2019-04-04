@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'appointment')}">
+<body>
+    <h2 th:text="'Cita de ' + ${pet.name} + '.'"></h2>
+    <br/>
+    <h3 th:text="'Dueño: ' + ${owner.firstName} + ' ' + ${owner.lastName}" th:href="@{/owners/__${owner.id}__}"></h3>
+
+    <table class="table table-borderless table-hover table-responsive">
+        <thead>
+        <th>
+            Fecha
+        </th>
+        <th>
+            Asunto
+        </th>
+        <th>
+            Especialidad
+        </th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div th:text="${appointment.date}"></div>
+                </td>
+                <td>
+                    <div th:text="${appointment.matter}"></div>
+                </td>
+                <td>
+                    <div th:text="${appointment.specialty_id}"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

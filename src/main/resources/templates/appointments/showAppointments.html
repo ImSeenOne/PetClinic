@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'appointments')}">
+<body>
+    <h2>Citas</h2>
+
+    <div th:each="owner : ${owners}" >
+        <table id="appointments" class="table table-striped table-borderless table-hover" th:each="pet : ${owner.pets}">
+            <thead th:text=" 'Citas de mascotas de ' + ${owner.firstName} + ' ' + ${owner.lastName}"></thead>
+            <tr>
+                <th style="width: 100px;">Mascota</th>
+                <th style="width: 100px;">Asunto</th>
+                <th style="width: 100px;">Especialidad</th>
+                <th style="width: 100px;">Fecha</th>
+                <th style="width: 100px;">Acción</th>
+            </tr>
+            <tbody >
+            <tr th:each="appointment : ${appointments}" th:href="@{/appointments/__${appointment.id}__}">
+                <td >
+                    <a th:href="@{/owners/__${owner.id}__/pets/__${pet.id}__}" th:text="${pet.name}"></a>
+                </td>
+                <td>
+                    <div th:text="${appointment.matter}"></div>
+                </td>
+                <td>
+                    <div th:text="${appointment.specialty_id}"></div>
+                </td>
+                <td>
+                    <div th:text="${appointment.date}"></div>
+                </td>
+                <td>
+                    <a th:href="@{/appointments/__${appointment.id}__/remove}" class="btn btn-default" />Eliminar</a>
+                    <a th:href="@{/pets/__${pet.id}__/appointments/{id}/edit(id=${appointment.id})}" class="btn btn-default">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

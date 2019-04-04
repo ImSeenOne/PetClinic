@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'appointment')}">
+
+<body>
+
+<!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
+<!--@thymesVar id="appointment" type="org.springframework.samples.petclinic.appointment.Appointment"-->
+<!--*/-->
+<h2>Citas</h2>
+<form th:object="${appointment}" class="form-horizontal" id="add-appointment-form" method="post">
+    <div class="form-group has-feedback">
+
+        <div class = "col-sm-6" th:text="'Nueva cita para: ' + ${pet.name}"></div>
+        <br/>
+        <div class = "col-sm-6 align-baseline" th:text="'Mascota de ' + ${owner.firstName} + ' ' + ${owner.lastName}"></div>
+
+        <input
+                th:replace="~{fragments/selectField :: select ('Especialidad', 'specialty_id', ${specialties})}" />
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Asunto/Enfermedad', 'matter', 'text')}" />
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Fecha', 'date', 'date')}"  />
+
+
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+
+            <button
+                    th:with="text=${appointment['new']} ? 'Crear cita' : 'Modificar cita'"
+                    class="btn btn-default" type="submit" th:text="${text}">Crear cita</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
