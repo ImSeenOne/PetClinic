@@ -1,6 +1,8 @@
-package org.springframework.samples.petclinic.product;
+package org.springframework.samples.petclinic.product.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.product.Product;
+import org.springframework.samples.petclinic.product.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,15 +18,13 @@ import java.util.Map;
 
 
 @Controller
-public class FileUploadController implements StorageService{
+public class FileUploadController{
 
     public static ProductRepository productRepository;
-    public final StorageService storageService;
 
     @Autowired
-    public FileUploadController(ProductRepository productRepository, StorageService storageService) {
+    public FileUploadController(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.storageService = storageService;
     }
 
     @GetMapping("/products/{id}/upload")
@@ -52,7 +52,7 @@ public class FileUploadController implements StorageService{
         String filename = this.buildFilename(product, file);
 
         try{
-            fileNameAndPath = Paths.get("C:\\Users\\Crist\\Documents\\IntelliJ IDEA Projects\\spring-petclinic-master\\src\\main\\resources\\static\\resources\\images",  filename);
+            fileNameAndPath = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/resources/images",  filename);
             Files.write(fileNameAndPath, file.getBytes());
         } catch(IOException ioex) {
             ioex.printStackTrace();
