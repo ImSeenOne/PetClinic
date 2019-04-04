@@ -13,15 +13,16 @@
  */
 @icon-font-path:    "../../webjars/bootstrap/fonts/";
 
-@spring-grey:       #838789;
-@spring-light-grey: #f1f1f1;
-@spring-blue:       #257A37; //sup /**before: 0f1c63**/
+
+@spring-grey:       #f1f1f1;
+@spring-light-grey: #838789;
+@spring-blue:       #73EA44; //sup /**before: 0f1c63**/
 @spring-dkb:        #257A37; //inf /**before: 09a6fb, #00FA35**/
-@spring-azul:       #257A37; /**before: 09a6fb, #4BFB71**/
+@spring-azul:       #73C944; /**before: 09a6fb, #4BFB71**/
 @spring-black:      #000000;
 
 
-@body-bg:                           @spring-light-grey;
+@body-bg:                           @spring-grey;
 @text-color:                        @spring-black;
 @link-color:                        @spring-dkb;
 @link-hover-color:                  @spring-blue;
@@ -38,7 +39,7 @@
 @border-radius-large:            0;
 @border-radius-small:            0;
 
-@btn-default-color:              @spring-light-grey;
+@btn-default-color:              @spring-grey;
 @btn-default-bg:                 @spring-azul;
 @btn-default-border:             @spring-blue;
 
@@ -53,7 +54,7 @@
 
 .table > thead > tr > th {
   background-color: lighten(@spring-azul, 3%);
-  color: @spring-light-grey;
+  color: @spring-grey;
 }
 
 .table-filter {
@@ -79,7 +80,7 @@
   &.active,
   .open .dropdown-toggle& {
     background-color: @spring-azul;
-    border-color: @spring-azul;
+    border-color: @spring-blue;
   }
 }
 
@@ -215,7 +216,7 @@ table td.action-column {
 
 .container-details-table th {
   background-color: lighten(@spring-azul, 3%);
-  color: @spring-light-grey;
+  color: @spring-grey;
 }
 
 .status-help-content-table td {
