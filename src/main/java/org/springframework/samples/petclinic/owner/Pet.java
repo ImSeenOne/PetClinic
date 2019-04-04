@@ -35,6 +35,7 @@ import javax.persistence.Table;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.samples.petclinic.appointment.Appointment;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.visit.Visit;
 
@@ -63,6 +64,9 @@ public class Pet extends NamedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)
     private Set<Visit> visits = new LinkedHashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId")
+    private Set<Appointment> appointments = new LinkedHashSet<>();
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
@@ -95,6 +99,13 @@ public class Pet extends NamedEntity {
         return this.visits;
     }
 
+    protected Set<Appointment> getAppointmentsInternal() {
+        if(this.appointments == null) {
+            this.appointments = new HashSet<>();
+        }
+        return this.appointments;
+    }
+
     protected void setVisitsInternal(Set<Visit> visits) {
         this.visits = visits;
     }
@@ -104,6 +115,11 @@ public class Pet extends NamedEntity {
         PropertyComparator.sort(sortedVisits,
                 new MutableSortDefinition("date", false, false));
         return Collections.unmodifiableList(sortedVisits);
+    }
+
+    public void addAppointment(Appointment appointment) {
+        getAppointmentsInternal().add(appointment);
+        appointment.setPetId(this.getId());
     }
 
     public void addVisit(Visit visit) {
