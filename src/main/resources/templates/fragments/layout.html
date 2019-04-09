@@ -37,7 +37,7 @@
           <div class="navbar-collapse collapse" id="main-navbar">
               <ul class="nav navbar-nav navbar-right">
   
-                  <li th:fragment="menuItem (path,active,title,glyph,text)" class="nav-pills nav-fill" th:class="${active==menuItem ? 'active' : ''}">
+                  <li th:fragment="menuItem (path,active,title,glyph,text)" class="nav-pills nav-justified" th:class="${active==menuItem ? 'active' : ''}">
                       <a th:href="@{__${path}__}" th:title="${title}">
                         <span th:class="'glyphicon  glyphicon-'+${glyph}" class="glyphicon glyphicon-home" aria-hidden="true"></span>
                         <span th:text="${text}">Template</span>
@@ -73,6 +73,15 @@
                       <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                       <span>Buscar Medicinas</span>
                   </li>
+
+                  <li th:replace="::menuItem ('/services','services','Servicios', 'search','Servicios')">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      <span>Servicios</span>
+                  </li>
+
+                  <li th:replace="::menuItem ('/treatments','treatments','Tratamientos', 'search','Tratamientos')">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                      <span>Tratamientos</span>
               </ul>
           </div>
       </div>

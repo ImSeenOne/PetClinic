@@ -68,25 +68,31 @@ public class AppointmentController {
             return VIEWS_APPOINTMENTS_CREATE_OR_UPDATE_FORM;
         } else {
             this.appointmentRepository.save(appointment);
-            return "redirect:/appointments/" + appointment.getId();
+            Owner owner = this.petRepository.findById(appointment.getPetId()).getOwner();
+            return "redirect:/owners/"+owner.getId();
         }
     }
 
     @GetMapping("pets/{petId}/appointments/{appointmentId}/edit")
     public String initEditForm(Map<String, Object> model, @PathVariable("petId") int petId, @PathVariable("appointmentId") int appointmentId) {
 
-        Appointment appointment = new Appointment();
+        Appointment appointment = this.appointmentRepository.findById(appointmentId);
+        Pet pet = this.petRepository.findById(appointment.getPetId());
 
-        appointment.setPetId(petId);
         model.put("appointment", appointment);
+        model.put("owner", pet.getOwner());
+        model.put("pet", pet);
+
         return VIEWS_APPOINTMENTS_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("pets/{petId}/appointments/{appointmentId}/edit")
-    public String processEditForm(@Valid Appointment appointment, BindingResult result) {
+    public String processEditForm(@Valid Appointment appointment, BindingResult result, @PathVariable("appointmentId") int appointmentId, @PathVariable("petId") int petId) {
         if(result.hasErrors()) {
             return VIEWS_APPOINTMENTS_CREATE_OR_UPDATE_FORM;
         } else {
+            appointment.setId(appointmentId);
+            appointment.setPetId(petId);
             this.appointmentRepository.save(appointment);
             return "redirect:/appointments/" + appointment.getId();
         }
@@ -98,7 +104,6 @@ public class AppointmentController {
         List<Appointment> appointments = this.appointmentRepository.findAll();
         List<Owner> owners = new LinkedList<>();
         for (Appointment appointment : appointments) {
-            System.out.println(appointment.getPetId());
             Pet pet = this.petRepository.findById(appointment.getPetId());
             if(!owners.contains( pet.getOwner() ) ) {
                 owners.add(pet.getOwner());

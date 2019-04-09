@@ -2,7 +2,6 @@ package org.springframework.samples.petclinic.appointment;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

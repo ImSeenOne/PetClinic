@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'treatments')}">
+<body>
+<div class="row pb-3">
+    <div class="col-sm-2"><h2>Tratamientos</h2></div>
+    <div class="col-sm-2 ">
+        <a th:href="@{/treatments/new}" class="btn btn-default" />Agregar un nuevo tratamiento</a>
+    </div>
+
+</div>
+<table class="table table-striped table-borderless ">
+    <thead>
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Medicinas utilizadas
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="treatment : ${treatments}">
+        <td>
+            <a th:text="${treatment.name}"></a>
+        </td>
+        <td>
+            <a th:text="${treatment.instructions}"></a>
+        </td>
+        <td>
+            <a th:text="${treatment.medicines}"></a>
+        </td>
+        <td>
+            <a th:href="@{/treatments/__${treatment.id}__/delete}" class="btn btn-default" />Eliminar</a>
+            <a th:href="@{/treatment/{id}/edit(id=${treatment.id})}" class="btn btn-default">Editar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>

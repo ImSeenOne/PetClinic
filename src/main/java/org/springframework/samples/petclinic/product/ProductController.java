@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @Controller
+public
 class ProductController {
 
     private static final String VIEWS_PRODUCTS_CREATE_OR_UPDATE_FORM = "products/createOrUpdateProductForm";

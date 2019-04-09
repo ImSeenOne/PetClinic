@@ -21,6 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.vet.Vet;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -62,7 +63,7 @@ public class VetControllerTests {
         vet.setSpecialty_id("radiology");
         given(this.vets.findById(TEST_VET_ID)).willReturn(vet);
     }
-    
+    @WithMockUser(value = "user")
       @Test
     public void testInitCreationForm() throws Exception {
         mockMvc.perform(get("/vets/new"))
@@ -70,7 +71,7 @@ public class VetControllerTests {
             .andExpect(model().attributeExists("vet"))
             .andExpect(view().name("vets/createOrUpdateVetsForm"));
     }
-
+    @WithMockUser(value = "user")
     @Test
     public void testProcessCreationFormSuccess() throws Exception {
         mockMvc.perform(post("/vets/new")
@@ -83,9 +84,9 @@ public class VetControllerTests {
         )
             .andExpect(status().is3xxRedirection());
     }
-    
 
 
+    @WithMockUser(value = "user")
     @Test
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post("/vets/new")
@@ -100,7 +101,8 @@ public class VetControllerTests {
             .andExpect(model().attributeHasFieldErrors("vet", "business_hours"))
             .andExpect(view().name("vets/createOrUpdateVetForm"));
     }
-    
+
+    @WithMockUser(value = "user")
     @Test
     public void testInitFindForm() throws Exception {
         mockMvc.perform(get("/vets/find"))
@@ -108,7 +110,8 @@ public class VetControllerTests {
             .andExpect(model().attributeExists("vet"))
             .andExpect(view().name("vets/findVets"));
     }
-    
+
+    @WithMockUser(value = "user")
      @Test
     public void testProcessFindFormSuccess() throws Exception {
         given(this.vets.findByLastName("")).willReturn(Lists.newArrayList(vet, new Vet()));
@@ -117,6 +120,7 @@ public class VetControllerTests {
             .andExpect(view().name("vets/vetsList"));
     }
 
+    @WithMockUser(value = "user")
     @Test
     public void testProcessFindFormByLastName() throws Exception {
         given(this.vets.findByLastName(vet.getLastName())).willReturn(Lists.newArrayList(vet));
@@ -137,7 +141,8 @@ public class VetControllerTests {
             .andExpect(model().attributeHasFieldErrorCode("vet", "lastName", "notFound"))
             .andExpect(view().name("vets/findVets"));
     }
-    
+
+    @WithMockUser(value = "user")
     @Test
     public void testInitUpdateOwnerForm() throws Exception {
         mockMvc.perform(get("/vets/{vetId}/edit", TEST_VET_ID))
@@ -151,7 +156,8 @@ public class VetControllerTests {
             .andExpect(model().attribute("vet", hasProperty("specialty_id", is("radiology"))))
             .andExpect(view().name("vets/createOrUpdateVetForm"));
     }
-    
+
+    @WithMockUser(value = "user")
     @Test
     public void testProcessUpdateOwnerFormSuccess() throws Exception {
         mockMvc.perform(post("/vets/{vetId}/edit", TEST_VET_ID)
@@ -165,7 +171,7 @@ public class VetControllerTests {
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name("redirect:/vets/{vetId}"));
     }
-    
+    @WithMockUser(value = "user")
     @Test
     public void testProcessUpdateOwnerFormHasErrors() throws Exception {
         mockMvc.perform(post("/vets/{vetId}/edit", TEST_VET_ID)
@@ -179,7 +185,7 @@ public class VetControllerTests {
             .andExpect(model().attributeHasFieldErrors("owner", "telephone"))
             .andExpect(view().name("owners/createOrUpdateOwnerForm"));
     }
-    
+    @WithMockUser(value = "user")
      @Test
     public void testShowOwner() throws Exception {
         mockMvc.perform(get("/vets/{vetId}", TEST_VET_ID))

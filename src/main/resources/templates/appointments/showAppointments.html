@@ -15,7 +15,7 @@
                 <th style="width: 100px;">Acción</th>
             </tr>
             <tbody >
-            <tr th:each="appointment : ${appointments}" th:href="@{/appointments/__${appointment.id}__}">
+            <tr  th:if="${appointment.petId} == ${pet.id}" th:each="appointment : ${appointments}" th:href="@{/appointments/__${appointment.id}__}">
                 <td >
                     <a th:href="@{/owners/__${owner.id}__/pets/__${pet.id}__}" th:text="${pet.name}"></a>
                 </td>

@@ -60,14 +60,13 @@ class OwnerController {
     }
 
     @PostMapping("/owners/new")
-    public String processCreationForm(@Valid Owner owner, BindingResult result) {
+    public String processCreationForm(@Valid Owner owner, BindingResult result) { //No funcionaba//
         if (result.hasErrors()) {
             return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
         } else {
             RestTemplate restTemplate = new RestTemplate();
             ZipCode zipCode = restTemplate.getForObject("https://api-codigos-postales.herokuapp.com/v2/codigo_postal/" + owner.getZipCode(), ZipCode.class);
             if(!zipCode.getCity().equals("")){
-                //System.out.println(zipCode.toString());
                 this.owners.save(owner);
                 return "redirect:/owners/" + owner.getId();
             } else {

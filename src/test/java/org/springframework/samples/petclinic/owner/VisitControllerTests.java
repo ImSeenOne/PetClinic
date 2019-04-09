@@ -17,6 +17,7 @@ import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.samples.petclinic.owner.PetRepository;
 import org.springframework.samples.petclinic.owner.VisitController;
 import org.springframework.samples.petclinic.visit.VisitRepository;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -45,6 +46,7 @@ public class VisitControllerTests {
         given(this.pets.findById(TEST_PET_ID)).willReturn(new Pet());
     }
 
+    @WithMockUser(value = "user")
     @Test
     public void testInitNewVisitForm() throws Exception {
         mockMvc.perform(get("/owners/*/pets/{petId}/visits/new", TEST_PET_ID))
@@ -52,6 +54,7 @@ public class VisitControllerTests {
             .andExpect(view().name("pets/createOrUpdateVisitForm"));
     }
 
+    @WithMockUser(value = "user")
     @Test
     public void testProcessNewVisitFormSuccess() throws Exception {
         mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)
@@ -62,6 +65,7 @@ public class VisitControllerTests {
             .andExpect(view().name("redirect:/owners/{ownerId}"));
     }
 
+    @WithMockUser(value = "user")
     @Test
     public void testProcessNewVisitFormHasErrors() throws Exception {
         mockMvc.perform(post("/owners/*/pets/{petId}/visits/new", TEST_PET_ID)

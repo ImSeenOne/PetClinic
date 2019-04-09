@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'clinicServices')}">
+
+<body>
+    <h2>Nuevo Servicio</h2>
+    <form th:object="${service}" class="form-horizontal" id="add-medicine-form" method="post">
+        <div class="form-group has-feedback">
+            <input
+                    th:replace="~{fragments/inputField :: input ('Nombre', 'name', 'text')}" />
+            <input
+                    th:replace="~{fragments/inputField :: input ('Descripción', 'description', 'text')}" />
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button
+                        th:with="text=${service['new']} ? 'Agregar servicio' : 'Actualizar servicio'"
+                        class="btn btn-default" type="submit" th:text="${text}">Agregar servicio</button>
+            </div>
+        </div>
+    </form>
+</body>

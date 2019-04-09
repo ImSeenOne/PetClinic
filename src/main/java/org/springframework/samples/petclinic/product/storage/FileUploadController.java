@@ -48,6 +48,7 @@ public class FileUploadController{
         if(product == null) {
             return "products/uploadProductImageView";
         }
+
         Path fileNameAndPath;
         String filename = this.buildFilename(product, file);
 
